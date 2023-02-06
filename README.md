@@ -26,6 +26,20 @@ curl -L https://install.pivpn.io | bash
 
 2. Copy `/etc/pivpn/wireguard/setupVars.conf` to your installation directory (`/home/pi/pia-pivpn/` by default)
 3. Start PIA, port forwarding, and the PiVPN by running `./startup_vpn.sh`
+4. Add the following lines to the `[Interface] section of the SERVER `/etc/wireguard/wg0.conf`:
+```shell
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o enp3s0 -j MASQUERADE;
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -D FORWARD -o wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o enp3s0 -j MASQUERADE;
+```
+5. Ensure you have ip_forwarding enabled on both the client and server:
+```shell
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo sysctl -p
+```
+6. Restart wireguard on the server:
+```shell
+sudo service wg-quick@wg0.service restart
+```
 
 # Usage
 
