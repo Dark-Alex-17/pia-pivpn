@@ -4,6 +4,8 @@ In order to have both VPNs running at once without them interfering with one ano
 * PIA runs with OpenVPN
 * PiVPN runs with WireGuard (default for PiVPN)
 
+This repo uses modified version of the PIA VPN scripts found in the [pia-foss/manual-connections repo](https://github.com/pia-foss/manual-connections).
+
 # Setup
 
 ## Prerequisites
@@ -19,13 +21,16 @@ password123!
 ```
 
 ## First Time Setup
-1. Install PiVPN
+1. Clone the repo into `/home/pi/pia-pivpn`
+2. Install PiVPN
 ```shell
 curl -L https://install.pivpn.io | bash
 ```
 
-2. Copy `/etc/pivpn/wireguard/setupVars.conf` to your installation directory (`/home/pi/pia-pivpn/` by default)
-3. Start PIA, port forwarding, and the PiVPN by running `./startup_vpn.sh`
+2. Copy `/etc/pivpn/wireguard/setupVars.conf` to your installation directory
+
+## Start the VPNs
+Start PIA, port forwarding, and the PiVPN by running `./startup_vpn.sh`
 4. Add the following lines to the `[Interface] section of the SERVER `/etc/wireguard/wg0.conf`:
 ```shell
 PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -A FORWARD -o wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o enp3s0 -j MASQUERADE;

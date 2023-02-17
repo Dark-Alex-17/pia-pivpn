@@ -53,6 +53,7 @@ while :; do
       if [[ -z $PIA_USER ]]; then
 #        echo
 #        read -r -p "PIA username (p#######): " PIA_USER
+# TODO: Extract creds from lastpass
 	PIA_USER=$(cat /etc/openvpn/auth.txt | head -1)
       fi
 
@@ -82,6 +83,7 @@ while :; do
 #      echo -n "PIA password: "
 #      read -r -s PIA_PASS
 #      echo
+# TODO: Extract creds from lastpass
 	PIA_PASS=$(cat /etc/openvpn/auth.txt | tail -1)
     fi
 
