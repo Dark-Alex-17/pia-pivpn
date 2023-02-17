@@ -27,9 +27,9 @@ password123!
 curl -L https://install.pivpn.io | bash
 ```
 
-2. Copy `/etc/pivpn/wireguard/setupVars.conf` to your installation directory
+3. Copy `/etc/pivpn/wireguard/setupVars.conf` to your installation directory
 
-## Start the VPNs
+### Start the VPNs
 Start PIA, port forwarding, and the PiVPN by running `./startup_vpn.sh`
 4. Add the following lines to the `[Interface] section of the SERVER `/etc/wireguard/wg0.conf`:
 ```shell
